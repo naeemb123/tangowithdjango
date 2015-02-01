@@ -1,5 +1,5 @@
 """
-Django settings for tango_with_django_project project.
+Django settings for mysite project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -10,21 +10,15 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-#Template Path
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
-
-#Static Path
-STATIC_PATH = os.path.join(BASE_DIR,'static')
-
+TEMPLATE_DIRS = [os.path.join(BASE_DIR,'templates')]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n9^$0@-^)e2(cz5nc1zgrr#2m!)pgt371dpc+_&1%q100%f&40'
+SECRET_KEY = 'nuiaq%&de^qftr@zg@da!kvr0%f9kww&lk9+8-#=657%k(rxlu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,16 +27,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-#Templates
-
-TEMPLATE_DIRS = [
-    TEMPLATE_PATH,
-    ]
-
-#Media
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Application definition
 
@@ -53,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rango',
+    'polls',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,9 +50,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'tango_with_django_project.urls'
+ROOT_URLCONF = 'mysite.urls'
 
-WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
+WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 # Database
@@ -99,9 +83,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    STATIC_PATH,
-    )
-
-LOGIN_URL = '/rango/login/'
