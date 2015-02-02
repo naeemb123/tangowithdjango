@@ -203,7 +203,7 @@ def user_login(request):
 #View to check whether you are logged in or not
 
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+    return render(request, '/rango/restricted.html')
 
 #View to log the user out
 
