@@ -1,5 +1,4 @@
 {% extends 'rango/base.html' %}
-
 {% load staticfiles %}
 
 {% block title %}Rango{% endblock %}
@@ -13,14 +12,27 @@
         {% endif %}
             </div>
             <div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Categories</h3>
+                </div>
+            </div>
             <p> {% if categories %}
-            <ul>
+            <ul class = "list-group">
                 {% for category in categories %}
-                <li><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
+                <li class = "list-group-item"><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
                 {% endfor %}
                 <p></p>
+
+            <div class="panel panel-primary">
+                 <div class="panel-heading">
+                    <h3 class="panel-title">Pages</h3>
+                </div>
+            </div>
+
                 {% for page in pages %}
-                <li><a href= {{ page.url }}>{{ page.title }}</a></li>
+                <li class = "list-group-item"><a href= {{ page.url }}>{{ page.title }}</a></li>
                 {%  endfor %}
             </ul>
         {% else %}
