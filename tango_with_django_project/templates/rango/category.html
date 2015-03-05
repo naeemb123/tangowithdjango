@@ -5,8 +5,11 @@
 {% block title %}{{ category_name }}{% endblock %}
 
 {% block body_block %}
-    <h1>{{ category_name }}</h1>
-    {% if category %}
+    <div class="page-header">
+                <h1>{{ category_name }}</h1>
+            </div>
+            <div>
+            <p> {% if category %}
         {% if pages %}
         <ul>
                 {% for page in pages %}
@@ -23,5 +26,9 @@
         {% else %}
                  The specified category {{ category_name }} does not exist!
     {% endif %}
+                </strong>.</p>
+
+            <img  width="90" height="100" src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
+            </div>
 
 {% endblock %}

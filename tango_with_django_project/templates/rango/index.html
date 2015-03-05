@@ -5,13 +5,15 @@
 {% block title %}Rango{% endblock %}
 
     {% block body_block %}
-        {% if user.is_authenticated %}
-            <h1>Rango says... hello {{ user.username }}!</h1>
+        <div class="page-header">
+                {% if user.is_authenticated %}
+            <h1>Rango says... hello <small>{{ user.username }}!</small></h1>
         {% else %}
-            <h1>Rango says... hello world!</h1>
+            <h1>Rango says... <small>hello world!</small></h1>
         {% endif %}
-
-        {% if categories %}
+            </div>
+            <div>
+            <p> {% if categories %}
             <ul>
                 {% for category in categories %}
                 <li><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
@@ -24,5 +26,6 @@
         {% else %}
             <strong>There are no categories present.</strong>
         {% endif %}
-
+                </strong>.</p>
+            </div>
     {% endblock %}

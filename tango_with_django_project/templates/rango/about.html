@@ -6,8 +6,14 @@
 {% block title  %}About{% endblock %}
 
     {% block body_block %}
-        Rango says here is the about page <br/>
-	This tutorial has been put together by Naeem Rahman, 2095150b <br/>
-        <img src="{% static "images/selfie.jpg" %}" alt="Picture of Myself" /> <!-- New line -->
-    {% endblock %}
+        <div class="page-header">
+                <h1>About</h1>
+            </div>
+            <div>
+            <p>visits: {{ visits }} <br/>
+            Rango says here is the about page <br/>
+	        This tutorial has been put together by Naeem Rahman, 2095150b <br/></strong>.</p>
+                <img  width="90" height="100" src="{% static "images/selfie.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
+            </div>
+{% endblock %}
 
