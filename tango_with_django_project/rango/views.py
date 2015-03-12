@@ -67,7 +67,7 @@ def category(request, category_name_slug):
     context_dict['result_list'] = None
     context_dict['query'] = None
     if request.method == 'POST':
-        query = request.POST['query'].strip()
+        query = request.POST.get('query', '').strip()
         if query:
             result_list = run_query(query)
             context_dict['result_list'] = result_list
