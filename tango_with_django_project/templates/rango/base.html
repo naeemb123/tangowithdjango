@@ -40,11 +40,20 @@
                         <li><a href="{% url 'restricted' %}">Restricted Page</a></li>
                         <li><a href="{% url 'auth_logout' %}?next=/rango/">Logout</a></li>
                         <li><a href="{% url 'add_category' %}">Add a New Category</a></li>
+                        {% if user.userprofile != null %}
+                        <li><a href="{% url 'profile' user.username  %}">Profile</a></li>
+                        {% else %}
+                        <li><a href="{% url 'register_profile' %}">Register Profile</a></li>
+                        {% endif %}
+
                     {% else %}
                         <li><a href="{% url 'registration_register' %}">Register Here</a></li>
                         <li><a href="{% url 'auth_login' %}">Login</a></li>
+
                     {% endif %}
                                 <li><a href="{% url 'about' %}">About</a></li>
+                                <li><a href="{% url 'search_users' %}">Search Users</a></li>
+
 
               </ul>
         </div>

@@ -16,5 +16,16 @@ urlpatterns = patterns('', url(r'^$', views.index, name='index'),
             #url(r'^search/$', views.search, name='search'),
 
             url(r'^goto/$', views.track_url, name='goto'),
+
+            url(r'^search_users/$', views.search_users, name='search_users'),
+
+            url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
+
+            url(r'^profile/(?P<username>[\w\-]+)/$', views.profile, name='profile'),
+
+            url(r'register_profile/$', views.profile_registration, name='register_profile'),
+
+
+
                        
         )

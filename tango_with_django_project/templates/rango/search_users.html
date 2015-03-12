@@ -1,0 +1,10 @@
+
+{% extends "rango/base.html" %}
+
+{% block body_block %}
+	<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+	<h2>User Profiles</h2>
+	{% for u in users %}
+		<li class="list-group-item"><a href="{% url 'profile' u %}">{{ u }}</a></li>
+	{% endfor %}
+{% endblock %}

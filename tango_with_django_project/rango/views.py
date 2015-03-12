@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from rango.models import Category
 from rango.models import Page
+from django.contrib.auth.models import User
+from rango.models import UserProfile
 from rango.forms import CategoryForm, PageForm
 from rango.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
@@ -180,3 +182,92 @@ def track_url(request):
                 pass
 
     return redirect(url)
+
+def profile(request, username):
+    context_dict = {}
+    user = User.objects.get(username=username)
+    profile = UserProfile.objects.get(user=user)
+    context_dict['user_name'] = user.username
+    context_dict['user_email'] = user.email
+    try:
+        context_dict['userprofilepicture'] = profile.picture
+    except:
+        context_dict['userprofilepicture'] = "null"
+    try:
+        context_dict['userprofilewebsite'] = profile.website
+    except:
+        context_dict['userprofilewebsite'] = "null"
+
+    return render(request, 'rango/profile.html', context_dict)
+
+@login_required
+def edit_profile(request):
+    context_dict = {}
+    if request.method == 'POST':
+        user_profile_form = UserProfileForm(data=request.POST, instance=request.user.userprofile)
+        if user_profile_form.is_valid():
+            if request.user.is_authenticated():
+                user_profile = UserProfile.objects.get(user_id=request.user.id)
+                if 'picture' in request.FILES:
+                    user_profile.picture = request.FILES['picture']
+                if 'website' in user_profile_form.cleaned_data:
+                    user_profile.website = user_profile_form.cleaned_data['website']
+                user_profile.save()
+            profile = UserProfile.objects.get(user=request.user)
+            context_dict['user_name'] = request.user.username
+            context_dict['user_email'] = request.user.email
+            try:
+                context_dict['userprofilepicture'] = profile.picture
+            except:
+                context_dict['userprofilepicture'] = "null"
+            try:
+                context_dict['userprofilewebsite'] = profile.website
+            except:
+                context_dict['userprofilewebsite'] = "null"
+            return render(request, 'rango/profile.html', context_dict)
+    else:
+        user_profile_form = UserProfileForm(instance=request.user.userprofile)
+    return render(request,'rango/edit_profile.html',{'profile_form':user_profile_form})
+
+def search_users(request):
+    user_name = UserProfile.objects.all()
+    return render(request, 'rango/search_users.html', {'users': user_name})
+
+def  profile_registration(request):
+
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        # Note that we make use of both UserForm and UserProfileForm.
+        profile_form = UserProfileForm(data=request.POST)
+
+        # If the two forms are valid...
+        if profile_form.is_valid():
+            if request.user.is_authenticated():
+                user = User.objects.get(id=request.user.id)
+                profile = profile_form.save(commit=False)
+                profile.user = user
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+                profile.save()
+                return redirect('/rango/')
+
+
+        # Invalid form or forms - mistakes or something else?
+        # Print problems to the terminal.
+        # They'll also be shown to the user.
+        else:
+            print user_form.errors, profile_form.errors
+
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    else:
+        profile_form = UserProfileForm()
+
+    # Render the template depending on the context.
+    return render(request,
+            'rango/profile_registration.html',
+            {'profile_form': profile_form} )
+
+
+
+

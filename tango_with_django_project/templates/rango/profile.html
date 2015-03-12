@@ -1,0 +1,26 @@
+{% extends "rango/base.html" %}
+{% load staticfiles %}
+{% block body_block %}
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+    {% if user.username == user_name %}
+        <h2>User Profile</h2> <a href="{% url 'edit_profile' %}">Edit Profile</a><br/>
+        <a href="{% url 'auth_password_change' %}">Change Password</a><br/><br/>
+    {% else %}
+        <h2>User Profile</h2>
+    {% endif %}
+    <b>Username: </b><p>{{ user_name }}</p>
+    <b>Email: </b><p>{{ user_email }}</p>
+
+    {%  if userprofilewebsite == "null" %}
+        <p><b>No Website Added</b></p>
+    {% else %}
+        <b>Website: </b><p><a href="{{ userprofilewebsite }}">{{ userprofilewebsite }}</a>
+    {%  endif %}
+
+    {% if userprofilepicture  == "null"%}
+        <p><b>No Profile Picture Added</b></p>
+    {%  else %}
+        <p><b>Profile Picture:</b></p>
+        <img src="{{ userprofilepicture.url }}" width="20%" height="20%" alt="Picture of Rango"/>
+    {% endif %}
+{% endblock %}
